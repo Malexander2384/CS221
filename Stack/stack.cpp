@@ -16,27 +16,52 @@ Stack::~Stack(){
 }
 
 void Stack::Push(int n){
-    //Add to the top of the stack and add value
-    top++;
-    array[top] = n;
+
+   if(!IsFull()){
+        top++;
+        array[top] = n;
+    }
+    else if (IsFull())
+    {
+        Resize(n);
+    }
+    else{
+        throw StackFull();
+    }
+}
+
+void Stack::Resize(int n){
+    int newSize = num*2;
+    int* newArray = new int[newSize];
+
+    //Copy array contents over
+    std::copy(array, array + std::min(num,newSize), newArray);
+
+    delete [] array;
+    array = newArray;
+
+    Push(n);
 }
 
 void Stack::Pop(){
-    //Try setting top to null
-    try
-    {
-        //Check if stack is empty
-        if(top>0){
-            top--;
-        }
+
+    if(top>=0){
+        top--;
     }
-    //Throws to Exception Handling Class
-    catch(StackEmpty){}
+    else{
+        throw StackEmpty();
+    }
+
 }
 
 int Stack::Top()const{
-    //Returns array at top
-    return array[top];
+    
+    if(top != -1){
+        return array[top];
+    }
+    else{
+        throw StackEmpty();
+    }
 }
 
 bool Stack::IsEmpty()const{
@@ -45,11 +70,9 @@ bool Stack::IsEmpty()const{
 }
 
 bool Stack::IsFull()const{
-    try
-    {
-        return (top == (num-1));
-    }
-    catch(StackFull){}    
+
+    return (top == (num-1));
+ 
 }
 
 void Stack::MakeEmpty(){
