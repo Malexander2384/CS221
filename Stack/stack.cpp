@@ -6,6 +6,9 @@ Stack::Stack(int n){
     //Creating array to the specified size
     array = new int [n];
 
+    // Setting num to max allowed
+    num = n;
+
     //0 is the beginning of the array so start at -1 upon creation
     top = -1;
 }
@@ -16,12 +19,13 @@ Stack::~Stack(){
 }
 
 void Stack::Push(int n){
-
-   if(!IsFull()){
+    //Check to see whether allocated size is enough
+   if(top<num){
         top++;
         array[top] = n;
     }
-    else if (IsFull())
+    //If not enough then resize
+    else if (top==num)
     {
         Resize(n);
     }
@@ -31,20 +35,23 @@ void Stack::Push(int n){
 }
 
 void Stack::Resize(int n){
-    int newSize = num*2;
-    int* newArray = new int[newSize];
+    //Setting temp array to double value
+    num = num*2;
+    int* tempArray = new int[num];
 
     //Copy array contents over
-    std::copy(array, array + std::min(num,newSize), newArray);
-
+    for(int i=0;i<num;i++){
+        tempArray[i] = array[i];
+    }
+    //Deleting duplicate
     delete [] array;
-    array = newArray;
+    array = tempArray;
 
     Push(n);
 }
 
 void Stack::Pop(){
-
+    //Check if empty
     if(top>=0){
         top--;
     }
@@ -55,7 +62,7 @@ void Stack::Pop(){
 }
 
 int Stack::Top()const{
-    
+    //Check if empty
     if(top != -1){
         return array[top];
     }
@@ -70,34 +77,64 @@ bool Stack::IsEmpty()const{
 }
 
 bool Stack::IsFull()const{
-
+    //Quick empty check
     return (top == (num-1));
  
 }
 
 void Stack::MakeEmpty(){
+    //No longer points to rest of stack
     top = -1;
 }
 
 int Stack::Size() const{
-
-    int size = sizeof(array) / sizeof(array[0]);
-    return size;
+    //Size is top + 1
+    return top+1;
 }
 
 int Stack::Capacity() const{
+    //Capacity should just be allocated mem
     return num;
 }
-//####################################
+
 int Stack::Max() const{
-    return 0;
+     if(top==-1){
+        throw StackEmpty();
+    }
+    else{
+        int max = array[0];
+            for (int i = 1; i < top; i++) { 
+                if (array[i] > max) { 
+                max = array[i]; 
+            } 
+    }
+    return max;
+    }
 } 
 
 int Stack::Min() const{
-    return 0;
+
+    if(top==-1){
+        throw StackEmpty();
+    }
+    else{
+        int min = array[0];
+            for (int i = 1; i < top; i++) { 
+                if (array[i] < min) { 
+                min = array[i]; 
+            } 
+    }
+    return min;
+    }
 }
 
 int Stack::Peek(unsigned int n) const{
-    return 0;
+
+    if(top>=n && top!=-1){
+        return array[top-n];
+    }
+    else{
+        throw StackInvalidPeek();
+    }
 }
 
