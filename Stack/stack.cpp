@@ -24,7 +24,7 @@ void Stack::Push(int n){
         top++;
         array[top] = n;
     }
-    //If not enough then resize
+    //If current size equals max then resize is called
     else if (top==num)
     {
         Resize(n);
