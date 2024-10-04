@@ -3,33 +3,39 @@
 #include "stack.h"
 
 Stack::Stack(int n){
-    //Creating array to the specified size
+
     array = new int [n];
 
-    // Setting num to max allowed
+    //Setting num to max allowed
     num = n;
-
     //0 is the beginning of the array so start at -1 upon creation
     top = -1;
 }
 
 Stack::~Stack(){
-    //Should delete stack(I hope)
     delete [] array;
 }
 
 void Stack::Push(int n){
-    //Check to see whether allocated size is enough
-   if(top<num){
-        top++;
-        array[top] = n;
-    }
-    //If current size equals max then resize is called
-    else if (top==num)
+    //Needed for testing because else breaks
+    bool check1 = true;
+    bool check2 = true;
+    
+    //Perfect time to resize
+    if (top==num-1)
     {
         Resize(n);
+        Push(n);
+        check2 = false;
     }
-    else{
+    //This is the normal push method
+    else if(top<num){
+        top++;
+        array[top] = n;
+        check1 = false;
+    }
+
+    if(check1 && check2 == true){
         throw StackFull();
     }
 }
@@ -43,11 +49,9 @@ void Stack::Resize(int n){
     for(int i=0;i<num;i++){
         tempArray[i] = array[i];
     }
-    //Deleting duplicate
+
     delete [] array;
     array = tempArray;
-
-    Push(n);
 }
 
 void Stack::Pop(){
@@ -98,9 +102,11 @@ int Stack::Capacity() const{
 }
 
 int Stack::Max() const{
+
      if(top==-1){
         throw StackEmpty();
     }
+    //Tests array values against each other
     else{
         int max = array[0];
             for (int i = 1; i < top; i++) { 
@@ -117,6 +123,7 @@ int Stack::Min() const{
     if(top==-1){
         throw StackEmpty();
     }
+    //Tests array values against each other
     else{
         int min = array[0];
             for (int i = 1; i < top; i++) { 
@@ -129,7 +136,7 @@ int Stack::Min() const{
 }
 
 int Stack::Peek(unsigned int n) const{
-
+    //Check for overflow and empty 
     if(top>=n && top!=-1){
         return array[top-n];
     }
