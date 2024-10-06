@@ -17,27 +17,26 @@ Stack::~Stack(){
 }
 
 void Stack::Push(int n){
-    //Needed for testing because else breaks
-    bool check1 = true;
-    bool check2 = true;
     
     //Perfect time to resize
     if (top==num-1)
     {
+        //Doubles array size but Im not sure why it needs a parameter
         Resize(n);
-        Push(n);
-        check2 = false;
+        
+        //Push again
+        top++;
+        array[top] = n;    
     }
     //This is the normal push method
     else if(top<num){
         top++;
         array[top] = n;
-        check1 = false;
     }
-
-    if(check1 && check2 == true){
+    else{
         throw StackFull();
     }
+
 }
 
 void Stack::Resize(int n){
