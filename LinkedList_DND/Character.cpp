@@ -114,6 +114,11 @@ void Character::printAll(){
     std::cout<<"Intelligence: "<<getIntelligence()<<"\n";
     std::cout<<"Wisdom: "<<getWisdom()<<"\n";
     std::cout<<"Charisma: "<<getCharisma()<<"\n";
+
+    std::cout<<m_Items[0].m_sItemName;
+    // for(int i=0;i<itemCount;i++){
+    //     std::cout<<m_Items[itemCount].m_dValue;
+    // }
 }
 
 //TODO charname.next for print all?
@@ -121,23 +126,31 @@ void Character::printAll(){
 bool Character::addItem(Item *item){
 
     int length = sizeof(m_Items)/sizeof(m_Items[0]);
-    bool check1 = false;
+    
+    if(length>itemCount){
 
-    for (int i = 0;i<length; i++) {
-            if (m_Items[i] == 0) {
-                b = true;
-            }
-        }
+        m_Items[itemCount].m_dValue = item->m_dValue;
+        m_Items[itemCount].m_dWeight = item->m_dWeight;
+        m_Items[itemCount].m_iType = item->m_iType;
+        
+        // Strcpy works
+        strcpy(m_Items[itemCount].m_sDesc,item->m_sDesc);
+        strcpy(m_Items[itemCount].m_sItemName,item->m_sItemName);
+        // m_Items[itemCount].m_sDesc = item->m_sDesc;
+        // m_Items[itemCount].m_sItemName = item->m_sItemName;
 
+        m_Items[itemCount].right = item->right;
+        m_Items[itemCount].left = item->right;
 
-    for(int i=0; i<length; i++){
+        itemCount++;
 
-        if(m_Items[i] == 1){
-            return;
-        }
-
+        return true;
+    }
+    else{
+        return false;
     }
 }
+
 
 Item *Character::getItem(char *itemName){
 
@@ -151,5 +164,32 @@ Item *Character::dropItem(char *itemName){
 
 
 int main(){
-    std::cout<<"hello";
+
+    char name[65] = "John";
+    Character testClass(name,1,1,1,1,1,1,1,1,1);
+
+    // Item* testStruct = new Item;
+    Item testStruct = {0};
+    strcpy(testStruct.m_sItemName,name);
+    Item* structPtr = &testStruct;
+    // testStruct->m_dValue=1;
+    
+    // testStruct->m_sItemName="John";
+    // testStruct->m_iType=1;
+    // testStruct->m_dValue=1;
+    // testStruct->m_dValue=1.1;
+    // testStruct->m_dWeight=1.1;
+    
+
+    // //.m_sItemName[65];
+    // char    m_sDesc[128];
+    // int     m_iType = 2;
+    // double  m_dValue = 2;
+    // double  m_dWeight = 2;
+
+    testClass.addItem(structPtr);
+
+    testClass.printAll();
+
+
 }

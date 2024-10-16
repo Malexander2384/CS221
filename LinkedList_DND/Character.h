@@ -10,6 +10,9 @@
 #include "Item.h"
 #include "Possessions.h"
 
+//TODO Remove maybe
+#include <string.h>
+
 
 class Character
 {
@@ -20,8 +23,11 @@ class Character
 		int		m_iHitPoints;
 		int		m_iCharTraits[6];
 
-		Item m_Items[10] = {0};			
-									
+		//Maybe
+		int itemCount = 0;
+		
+		Item m_Items[10];			
+
 		Possessions *BattleItems;
 		Possessions *TreasureItems;
 
