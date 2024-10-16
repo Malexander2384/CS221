@@ -9,8 +9,6 @@
 #include <iostream>
 #include "Item.h"
 #include "Possessions.h"
-
-//TODO Remove maybe
 #include <string.h>
 
 
@@ -23,9 +21,11 @@ class Character
 		int		m_iHitPoints;
 		int		m_iCharTraits[6];
 
-		//Maybe
+		// Used to keep track of where and size of item array
 		int itemCount = 0;
-		
+		int length = sizeof(m_Items)/sizeof(m_Items[0]);
+
+
 		Item m_Items[10];			
 
 		Possessions *BattleItems;

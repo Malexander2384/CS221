@@ -107,7 +107,6 @@ void Character::printAll(){
     std::cout<<"Class: "<<getClass()<<"\n";
     std::cout<<"Alignment: "<<getAlignment()<<"\n";
     std::cout<<"HitPoints: "<<getHitPoints()<<"\n";
-     
     std::cout<<"Strength: "<<getStrength()<<"\n";
     std::cout<<"Dexterity: "<<getDexterity()<<"\n";
     std::cout<<"Constitution: "<<getConstitution()<<"\n";
@@ -115,33 +114,28 @@ void Character::printAll(){
     std::cout<<"Wisdom: "<<getWisdom()<<"\n";
     std::cout<<"Charisma: "<<getCharisma()<<"\n";
 
-    std::cout<<m_Items[0].m_sItemName;
-    // for(int i=0;i<itemCount;i++){
-    //     std::cout<<m_Items[itemCount].m_dValue;
-    // }
+    for(int i=0;i<itemCount;i++){
+        std::cout<<"\n"<<m_Items[i].m_sItemName<<": "<<"\n";
+        std::cout<<"Value is "<<m_Items[i].m_dValue<<"\t"<<"||"<<"\t"<<"Weight is "<<m_Items[i].m_dWeight;
+    }
 }
 
 //TODO charname.next for print all?
 
 bool Character::addItem(Item *item){
 
-    int length = sizeof(m_Items)/sizeof(m_Items[0]);
     
     if(length>itemCount){
-
+        //Set values to imputted item
         m_Items[itemCount].m_dValue = item->m_dValue;
         m_Items[itemCount].m_dWeight = item->m_dWeight;
         m_Items[itemCount].m_iType = item->m_iType;
-        
-        // Strcpy works
-        strcpy(m_Items[itemCount].m_sDesc,item->m_sDesc);
-        strcpy(m_Items[itemCount].m_sItemName,item->m_sItemName);
-        // m_Items[itemCount].m_sDesc = item->m_sDesc;
-        // m_Items[itemCount].m_sItemName = item->m_sItemName;
-
         m_Items[itemCount].right = item->right;
         m_Items[itemCount].left = item->right;
+        strcpy(m_Items[itemCount].m_sDesc,item->m_sDesc);
+        strcpy(m_Items[itemCount].m_sItemName,item->m_sItemName);
 
+        //Update Count
         itemCount++;
 
         return true;
@@ -159,8 +153,6 @@ Item *Character::getItem(char *itemName){
 Item *Character::dropItem(char *itemName){
 
 }
-
-//C:\Users\Admin\CodeStuff\CS221\LinkedList_DND
 
 
 int main(){
