@@ -122,8 +122,9 @@ bool Character::addItem(Item *item){
 
     int length = sizeof(m_Items)/sizeof(m_Items[0]);
     bool check1 = false;
-    for (int i = 0; i < spies.length; i++) {
-            if (spies[i] == null) {
+
+    for (int i = 0;i<length; i++) {
+            if (m_Items[i] == 0) {
                 b = true;
             }
         }
