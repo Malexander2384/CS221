@@ -2,8 +2,8 @@
 
 
 Character::Character(){
-
 }
+
 Character::Character(char *name, int clas, int alignment, int hitpoints, int strength,
 	int dexterity, int constitution, int intelligence, int wisdom,int charisma){
     //Setters for normal
@@ -22,7 +22,6 @@ Character::Character(char *name, int clas, int alignment, int hitpoints, int str
 }
 
 Character::~Character(){
-
 }
 
 char* Character::getName(){
@@ -114,27 +113,20 @@ void Character::printAll(){
     std::cout<<"Wisdom: "<<getWisdom()<<"\n";
     std::cout<<"Charisma: "<<getCharisma()<<"\n";
 
+    // Print stats and every item name with weight/value
     for(int i=0;i<itemCount;i++){
         std::cout<<"\n"<<m_Items[i].m_sItemName<<": "<<"\n";
-        std::cout<<"Value is "<<m_Items[i].m_dValue<<"\t"<<"||"<<"\t"<<"Weight is "<<m_Items[i].m_dWeight;
+        std::cout<<"Value is "<<m_Items[i].m_dValue<<"\t"<<"||"<<"\t"<<"Weight is "<<m_Items[i].m_dWeight<<"\n";
     }
 }
 
 //TODO charname.next for print all?
 
 bool Character::addItem(Item *item){
-
     
     if(length>itemCount){
-        //Set values to imputted item
-        m_Items[itemCount].m_dValue = item->m_dValue;
-        m_Items[itemCount].m_dWeight = item->m_dWeight;
-        m_Items[itemCount].m_iType = item->m_iType;
-        m_Items[itemCount].right = item->right;
-        m_Items[itemCount].left = item->right;
-        strcpy(m_Items[itemCount].m_sDesc,item->m_sDesc);
-        strcpy(m_Items[itemCount].m_sItemName,item->m_sItemName);
 
+        m_Items[itemCount] = *item;
         //Update Count
         itemCount++;
 
@@ -147,9 +139,15 @@ bool Character::addItem(Item *item){
 
 
 Item *Character::getItem(char *itemName){
+
+    // Check every item in item array
     for(int i=0;i<itemCount;i++){
-        if(m_Items[i].m_sItemName == itemName){
-            return m_Items[i].m_sItemName->m_sItemName;
+        Item* tempPtr2 = &m_Items[0];
+
+        if(strcmp(m_Items[i].m_sItemName,itemName) == 0){
+            // Setting temp pointer for the return
+            Item* tempPtr = &m_Items[i];
+            return tempPtr;
         }
         else{
             return NULL;
@@ -158,37 +156,55 @@ Item *Character::getItem(char *itemName){
 }
 
 Item *Character::dropItem(char *itemName){
+    for(int i=0; i<itemCount;i++){
 
+        if(strcmp(m_Items[i].m_sItemName,itemName) == 0){
+            // Creating copy for the return
+            Item returnItem = m_Items[i];
+            Item* tempPtr = &returnItem;
+
+            for(int j=i;j<itemCount-1;j++){
+                m_Items[j] = m_Items[j+1];
+            }
+            itemCount--;
+            return tempPtr;
+
+        }
+    }
 }
 
 
-int main(){
+// int main(){
 
-    char name[65] = "John";
-    Character testClass(name,1,1,1,1,1,1,1,1,1);
+//     char Classname[65] = "John";
+//     char Structname1[65] = "Excali";
+//     char Structname2[65] = "FUNW";
+//     char Structname3[65] = "HRUNTING";
+//     Character testClass(Classname,1,1,1,1,1,1,1,1,1);
 
-    // Item* testStruct = new Item;
-    Item testStruct = {0};
-    strcpy(testStruct.m_sItemName,name);
-    Item* structPtr = &testStruct;
-    // testStruct->m_dValue=1;
+//     // Test Struct setup
+//     Item testStruct1 = {0};
+//     strcpy(testStruct1.m_sItemName,Structname1);
+//     Item* structPtr = &testStruct1;
+
+//     Item testStruct2 = {0};
+//     strcpy(testStruct2.m_sItemName,Structname2);
+//     Item* structPtr2 = &testStruct2;
     
-    // testStruct->m_sItemName="John";
-    // testStruct->m_iType=1;
-    // testStruct->m_dValue=1;
-    // testStruct->m_dValue=1.1;
-    // testStruct->m_dWeight=1.1;
-    
 
-    // //.m_sItemName[65];
-    // char    m_sDesc[128];
-    // int     m_iType = 2;
-    // double  m_dValue = 2;
-    // double  m_dWeight = 2;
-
-    testClass.addItem(structPtr);
-
-    testClass.printAll();
+//     Item testStruct3 = {0};
+//     strcpy(testStruct3.m_sItemName,Structname3);
+//     Item* structPtr3 = &testStruct3;
 
 
-}
+//     testClass.addItem(structPtr);
+//     testClass.addItem(structPtr2);
+//     testClass.addItem(structPtr3);
+
+//     testClass.dropItem(structPtr2->m_sItemName);
+
+
+//     testClass.printAll();
+
+
+// }
