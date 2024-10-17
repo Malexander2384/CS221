@@ -147,7 +147,14 @@ bool Character::addItem(Item *item){
 
 
 Item *Character::getItem(char *itemName){
-
+    for(int i=0;i<itemCount;i++){
+        if(m_Items[i].m_sItemName == itemName){
+            return m_Items[i].m_sItemName->m_sItemName;
+        }
+        else{
+            return NULL;
+        }
+    }
 }
 
 Item *Character::dropItem(char *itemName){
