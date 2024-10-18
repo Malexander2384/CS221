@@ -8,7 +8,6 @@
 #define CHARACTER_H
 #include <iostream>
 #include "Item.h"
-#include "Possessions.h"
 #include <string.h>
 
 
@@ -28,8 +27,8 @@ class Character
 
 		Item m_Items[10];			
 
-		Possessions *BattleItems;
-		Possessions *TreasureItems;
+		// Possessions *BattleItems;
+		// Possessions *TreasureItems;
 
 	public:
 		Character	*m_pNext;

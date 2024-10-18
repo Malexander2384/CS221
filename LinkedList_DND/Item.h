@@ -11,8 +11,8 @@ struct Item
     int     m_iType;
     double  m_dValue;
     double  m_dWeight;
-    Item    *left;
-    Item    *right;
+    Item    *m_pLeft;
+    Item    *m_pRight;
 };
 
 #endif
