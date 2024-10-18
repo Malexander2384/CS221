@@ -142,7 +142,6 @@ Item *Character::getItem(char *itemName){
 
     // Check every item in item array
     for(int i=0;i<itemCount;i++){
-        Item* tempPtr2 = &m_Items[0];
 
         if(strcmp(m_Items[i].m_sItemName,itemName) == 0){
             // Setting temp pointer for the return
@@ -169,6 +168,9 @@ Item *Character::dropItem(char *itemName){
             itemCount--;
             return tempPtr;
 
+        }
+        else{
+            return NULL;
         }
     }
 }

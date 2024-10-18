@@ -2,8 +2,22 @@
 
 bool CharacterList::addCharacter(Character *newCharacter)
 {
-    return false;
+    if(m_pHead == nullptr){
+        Character* addedChar = new Character();
+        addedChar = newCharacter;
+        addedChar->m_pNext = m_pHead;
+        m_pHead = addedChar;
+
+        return true;
+    }
+    // else if(m_pHead != nullptr{
+    //     return
+    // }
+
+    return true;
 } 
+
+
 
 Character* CharacterList::deleteCharacter(char *characterName){
     Character* test = nullptr;
@@ -27,3 +41,4 @@ Item* CharacterList::dropItem(char *characterName, char *itemName){
 void CharacterList::printCharacters(){
     return;
 }
+
