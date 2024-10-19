@@ -157,25 +157,56 @@ Item *Character::getItem(char *itemName){
 Item *Character::dropItem(char *itemName){
     for(int i=0; i<itemCount;i++){
 
+        // if(strcmp(m_Items[i].m_sItemName,itemName) == 0){
+            
+        //     // Creating copy for the return
+        //     Item returnItem = m_Items[i];
+        //     Item* tempPtr = &returnItem;
+        //     std::cout<<tempPtr<<"\t";
+        //     // for(int j=i;j<itemCount-1;j++){
+        //     //     m_Items[j] = m_Items[j+1];
+        //     // }
+        //     // itemCount--;
+
+        //     delete [] m_Items;
+
+        
+            
+
+        //     std::cout<<tempPtr;
+        //     return tempPtr;
+        // }
+        // else{
+        //     return NULL;
+        // }
+
+    for(int i=0; i<itemCount; i++){
         if(strcmp(m_Items[i].m_sItemName,itemName) == 0){
-            
-            // Creating copy for the return
-            Item returnItem = m_Items[i];
-            Item* tempPtr = &returnItem;
-            std::cout<<tempPtr<<"\t";
-            // for(int j=i;j<itemCount-1;j++){
-            //     m_Items[j] = m_Items[j+1];
-            // }
-            // itemCount--;
-            Item* itemPtr = &m_Items[i];
-            itemPtr = nullptr;
-            
-            std::cout<<tempPtr;
-            return tempPtr;
+
+            // Create copy for return
+            Item* droppedItem = new Item();
+            memcpy(droppedItem, &m_Items[i], sizeof(Item));
+
+            // Clearing all values
+            memset(&m_Items[i], 0, sizeof(Item));
+
+            // Rearrange array to fix gap
+            for(int j=i; j<itemCount-1;j++){
+                m_Items[j] = m_Items[j+1];
+            }
+
+            // Updating item amount
+            itemCount--;
+
+            // Return 
+            return droppedItem;
         }
-        else{
-            return NULL;
-        }
+    }
+
+    // Item wasnt found
+    return nullptr;
+
+
     }
 
 }
@@ -207,11 +238,11 @@ int Character::compare_Char(Character* a, Character* b){
 //     strcpy(testStruct3.m_sItemName,Structname3);
 //     Item* structPtr3 = &testStruct3;
 
-// 	Item* item = new Item();
-//     char Spear[] = "Spear";
-// 	strcpy(item->m_sItemName, Spear);
-// 	item->m_dValue = 75;
-// 	item->m_dWeight = 3;
+	// Item* item = new Item();
+    // char Spear[] = "Spear";
+	// strcpy(item->m_sItemName, Spear);
+	// item->m_dValue = 75;
+	// item->m_dWeight = 3;
 
     
 //     testClass.addItem(item);
