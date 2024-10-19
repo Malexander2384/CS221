@@ -173,6 +173,11 @@ Item *Character::dropItem(char *itemName){
             return NULL;
         }
     }
+
+}
+
+int Character::compare_Char(Character* a, Character* b){
+    return strcmp(a->m_sName,b->m_sName);
 }
 
 

@@ -67,6 +67,8 @@ class Character
 		bool addItem(Item *item);
 		Item *getItem(char *itemName);
 		Item *dropItem(char *itemName);
+
+		int compare_Char(Character* a, Character* b);
 		
 
 		void printAll();				// Print everything about this character

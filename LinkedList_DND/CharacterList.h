@@ -8,8 +8,6 @@ class CharacterList
 private:
     Character* m_pHead;
 public:
-    CharacterList(/* args */);
-    ~CharacterList();
 
     bool addCharacter(Character *newCharacter);
 
@@ -24,23 +22,6 @@ public:
     void printCharacters();
 
 };
-
-CharacterList::CharacterList(/* args */)
-{
-}
-
-CharacterList::~CharacterList()
-{
-}
-
-
-
-
-
-
-
-
-
 
 
 #endif
