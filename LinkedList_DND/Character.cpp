@@ -118,6 +118,7 @@ void Character::printAll(){
         std::cout<<"\n"<<m_Items[i].m_sItemName<<": "<<"\n";
         std::cout<<"Value is "<<m_Items[i].m_dValue<<"\t"<<"||"<<"\t"<<"Weight is "<<m_Items[i].m_dWeight<<"\n";
     }
+
 }
 
 //TODO charname.next for print all?
@@ -156,29 +157,6 @@ Item *Character::getItem(char *itemName){
 
 Item *Character::dropItem(char *itemName){
     for(int i=0; i<itemCount;i++){
-
-        // if(strcmp(m_Items[i].m_sItemName,itemName) == 0){
-            
-        //     // Creating copy for the return
-        //     Item returnItem = m_Items[i];
-        //     Item* tempPtr = &returnItem;
-        //     std::cout<<tempPtr<<"\t";
-        //     // for(int j=i;j<itemCount-1;j++){
-        //     //     m_Items[j] = m_Items[j+1];
-        //     // }
-        //     // itemCount--;
-
-        //     delete [] m_Items;
-
-        
-            
-
-        //     std::cout<<tempPtr;
-        //     return tempPtr;
-        // }
-        // else{
-        //     return NULL;
-        // }
 
     for(int i=0; i<itemCount; i++){
         if(strcmp(m_Items[i].m_sItemName,itemName) == 0){

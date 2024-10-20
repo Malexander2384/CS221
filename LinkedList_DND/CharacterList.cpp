@@ -44,7 +44,6 @@ Character* CharacterList::deleteCharacter(char *characterName){
     
     // Traverse till end of list
     while(curr != nullptr){
-        
         if(strcmp(curr->getName(),characterName) == 0){
             // Setting the character to be removed here before any changes
             removedChar = curr;
@@ -71,7 +70,6 @@ Character* CharacterList::deleteCharacter(char *characterName){
     }
 
 }
-
 
 
 bool CharacterList::addItem(char *characterName, Item *newItem){
@@ -142,6 +140,35 @@ Item* CharacterList::dropItem(char *characterName, char *itemName){
 }
 
 void CharacterList::printCharacters(){
-    return;
+    // Used for traversal
+    Character* curr = m_pHead;
+
+    // Iterates through and prints requited values
+    while(curr != NULL){
+        curr->printAll();
+
+        curr = curr->m_pNext;
+    }
+    
 }
+
+// int main(){
+// 	char Rimbard[] = "Aimbard";
+// 	char Silverleaf[] = "Bilverleaf";
+// 	char Grayhawk[] = "Crayhawk";
+// 	char Marcus_Leonus[] = "Marcus_Leonus";
+
+//     Character* player1 = new Character(Rimbard, 5, 1, 31, 11, 15, 14, 18, 18, 14);
+//     Character* player2 = new Character(Silverleaf, 5, 1, 31, 11, 15, 14, 18, 18, 14);
+//     Character* player3 = new Character(Grayhawk, 5, 1, 31, 11, 15, 14, 18, 18, 14);
+
+
+//     CharacterList* theList = new CharacterList();
+//     theList->addCharacter(player1);
+//     theList->addCharacter(player2);
+//     theList->addCharacter(player3);
+
+//     theList->printCharacters();
+
+// }
 
