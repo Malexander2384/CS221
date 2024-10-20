@@ -4,7 +4,7 @@
 
 bool CharacterList::addCharacter(Character *newCharacter)
 {
-
+    // Added Character for return
     Character* addedChar = new Character();
     addedChar = newCharacter;
     // Checking to see if head exists
@@ -145,6 +145,7 @@ void CharacterList::printCharacters(){
 
     // Iterates through and prints requited values
     while(curr != NULL){
+
         curr->printAll();
 
         curr = curr->m_pNext;

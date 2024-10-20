@@ -1,9 +1,5 @@
 #include "Character.h"
 
-
-Character::Character(){
-}
-
 Character::Character(char *name, int clas, int alignment, int hitpoints, int strength,
 	int dexterity, int constitution, int intelligence, int wisdom,int charisma){
     //Setters for normal
@@ -19,6 +15,10 @@ Character::Character(char *name, int clas, int alignment, int hitpoints, int str
     setIntelligence(intelligence);
     setWisdom(wisdom);
     setCharisma(charisma);
+}
+
+Character::Character(){
+    
 }
 
 Character::~Character(){
@@ -48,7 +48,6 @@ int Character::getAlignment(){
 void Character::setAlignment(int al){
     m_iAlignment = al;
 }
-
 
 int Character::getHitPoints(){
     return m_iHitPoints;
@@ -121,8 +120,6 @@ void Character::printAll(){
 
 }
 
-//TODO charname.next for print all?
-
 bool Character::addItem(Item *item){
     
     if(length>itemCount){
@@ -137,7 +134,6 @@ bool Character::addItem(Item *item){
         return false;
     }
 }
-
 
 Item *Character::getItem(char *itemName){
 
@@ -156,7 +152,6 @@ Item *Character::getItem(char *itemName){
 }
 
 Item *Character::dropItem(char *itemName){
-    for(int i=0; i<itemCount;i++){
 
     for(int i=0; i<itemCount; i++){
         if(strcmp(m_Items[i].m_sItemName,itemName) == 0){
@@ -180,13 +175,8 @@ Item *Character::dropItem(char *itemName){
             return droppedItem;
         }
     }
-
     // Item wasnt found
     return nullptr;
-
-
-    }
-
 }
 
 int Character::compare_Char(Character* a, Character* b){
