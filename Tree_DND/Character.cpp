@@ -1,7 +1,14 @@
 #include "Character.h"
 
+
+
 Character::Character(char *name, int clas, int alignment, int hitpoints, int strength,
 	int dexterity, int constitution, int intelligence, int wisdom,int charisma){
+    
+    // Tree of items
+    BattleItems = new Possessions();
+    TreasureItems = new Possessions();
+
     //Setters for normal
     setName(name);
     setClass(clas);
@@ -15,10 +22,12 @@ Character::Character(char *name, int clas, int alignment, int hitpoints, int str
     setIntelligence(intelligence);
     setWisdom(wisdom);
     setCharisma(charisma);
+
 }
 
 Character::Character(){
-    
+    BattleItems = new Possessions();
+    TreasureItems = new Possessions();
 }
 
 Character::~Character(){
@@ -112,22 +121,20 @@ void Character::printAll(){
     std::cout<<"Wisdom: "<<getWisdom()<<"\n";
     std::cout<<"Charisma: "<<getCharisma()<<"\n";
 
-    // Print stats and every item name with weight/value
-    for(int i=0;i<itemCount;i++){
-        std::cout<<"\n"<<m_Items[i].m_sItemName<<": "<<"\n";
-        std::cout<<"Value is "<<m_Items[i].m_dValue<<"\t"<<"||"<<"\t"<<"Weight is "<<m_Items[i].m_dWeight<<"\n";
-    }
+    BattleItems->printTree();
+    std::cout<<"\n";
+    TreasureItems->printTree();
 
 }
 
 bool Character::addItem(Item *item){
-    
-    if(length>itemCount){
 
-        m_Items[itemCount] = *item;
-        //Update Count
-        itemCount++;
-
+    if(item->m_iType == 1){
+        BattleItems->addItem(item);
+        return true;
+    }
+    else if(item->m_iType == 2){
+        TreasureItems->addItem(item);
         return true;
     }
     else{
@@ -137,46 +144,23 @@ bool Character::addItem(Item *item){
 
 Item *Character::getItem(char *itemName){
 
-    // Check every item in item array
-    for(int i=0;i<itemCount;i++){
-
-        if(strcmp(m_Items[i].m_sItemName,itemName) == 0){
-            // Setting temp pointer for the return
-            Item* tempPtr = &m_Items[i];
-            return tempPtr;
-        }
-        else{
-            return NULL;
-        }
+    if(BattleItems->getItem(itemName)){
+        return BattleItems->getItem(itemName);
     }
+    else{
+        return TreasureItems->getItem(itemName);
+    }
+
 }
 
 Item *Character::dropItem(char *itemName){
 
-    for(int i=0; i<itemCount; i++){
-        if(strcmp(m_Items[i].m_sItemName,itemName) == 0){
-
-            // Create copy for return
-            Item* droppedItem = new Item();
-            memcpy(droppedItem, &m_Items[i], sizeof(Item));
-
-            // Clearing all values
-            memset(&m_Items[i], 0, sizeof(Item));
-
-            // Rearrange array to fix gap
-            for(int j=i; j<itemCount-1;j++){
-                m_Items[j] = m_Items[j+1];
-            }
-
-            // Updating item amount
-            itemCount--;
-
-            // Return 
-            return droppedItem;
-        }
+    if(BattleItems->getItem(itemName)){
+        return BattleItems->dropItem(itemName);
     }
-    // Item wasnt found
-    return nullptr;
+    else{
+        return TreasureItems->dropItem(itemName);
+    }
 }
 
 int Character::compare_Char(Character* a, Character* b){
@@ -187,41 +171,75 @@ int Character::compare_Char(Character* a, Character* b){
 // int main(){
 
 //     char Classname[65] = "John";
-//     char Structname1[65] = "Excali";
-//     char Structname2[65] = "FUNW";
-//     char Structname3[65] = "HRUNTING";
+
 //     Character testClass(Classname,1,1,1,1,1,1,1,1,1);
-
-//     // Test Struct setup
-//     Item testStruct1 = {0};
-//     strcpy(testStruct1.m_sItemName,Structname1);
-//     Item* structPtr = &testStruct1;
-
-//     Item testStruct2 = {0};
-//     strcpy(testStruct2.m_sItemName,Structname2);
-//     Item* structPtr2 = &testStruct2;
-    
-
-//     Item testStruct3 = {0};
-//     strcpy(testStruct3.m_sItemName,Structname3);
-//     Item* structPtr3 = &testStruct3;
 
 // 	Item* item = new Item();
 //     char Spear[] = "Spear";
 // 	strcpy(item->m_sItemName, Spear);
 // 	item->m_dValue = 75;
 // 	item->m_dWeight = 3;
+//     item->m_iType = 1; 
 
-    
+//     Possessions TestTree;
+//     TestTree.addItem(item);
+//     TestTree.printTree();
+
+//     std::cout<<"\n"<<"#############################################################################################"<<"\n";
+
+//     testClass.printAll();
+
+//     std::cout<<"\n"<<"#############################################################################################"<<"\n";
+
 //     testClass.addItem(item);
-//     // testClass.addItem(structPtr2);
-//     // testClass.addItem(structPtr3);
+//     testClass.printAll();    
+// }
 
-//     testClass.dropItem(item->m_sItemName);
-//     // testClass.addItem(structPtr);
+// int main() {
+//     char Staff[] = "Staff";
+// 	char Spellbook[] = "Spellbook";
+// 	char Sword[] = "Sword";
+    
+
+//     Item* item = new Item;
+// 	strcpy(item->m_sItemName, Staff);
+// 	item->m_dValue = 5;
+// 	item->m_dWeight = 1;
+
+//     Item* item2 = new Item;
+// 	strcpy(item2->m_sItemName, Spellbook);
+// 	item2->m_dValue = 5;
+// 	item2->m_dWeight = 1;
+
+//     Item* item3 = new Item;
+// 	strcpy(item3->m_sItemName, Sword);
+// 	item3->m_dValue = 5;
+// 	item3->m_dWeight = 1;
+
+//     Possessions* pos = new Possessions();
+//     Possessions* Test = pos;
+
+//     Test->addItem(item);
+//     Test->addItem(item2);
+//     Test->addItem(item3);
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-//     // testClass.printAll();
+//     // Test->printTree();
 
 
+//     // std::cout << "In-order traversal: ";
+//     // Test->printOne(Test->m_pRoot);
+//     std::cout << std::endl;
+
+//     // Item* getTest = Test->getItem(Sword);
+//     // std::cout<< getTest->m_sItemName<< "\n";
+
+//     // Test->dropItem(Sword);
+
+//     // std::cout << "In-order traversal: ";
+//     // Test->printOne(Test->m_pRoot);
+//     std::cout << std::endl;
+
+//     return 0;
 // }

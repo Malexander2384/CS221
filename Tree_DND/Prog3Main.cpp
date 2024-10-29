@@ -50,7 +50,8 @@ int main(int argc, char **argv)
 
 	// Add items to the instance of Possessions
 	// Add the items to the player's lists
-	grade += addItemsToPossessions(pos, "Rimbard");
+	char Rimbard[] = "Rimbard";
+	grade += addItemsToPossessions(pos,Rimbard);
 	maxGrade += 3.5;	// 14 items added at 0.25 points each
 #ifdef GRADING
 	cout << "\n====== After adding items to Possessions instance grade = " << grade << " out of " << maxGrade << endl;
@@ -67,7 +68,8 @@ int main(int argc, char **argv)
 	cout.flush();
 
 	// Get a leaf
-	item = pos->getItem("R_BItem_7");
+	char R_BItem_7[] = "R_BItem_7";
+	item = pos->getItem(R_BItem_7);
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_BItem_7")==0))
 	{
 		grade += 0.5;
@@ -84,7 +86,8 @@ int main(int argc, char **argv)
 #endif
 
 	// Get an interior node
-	item = pos->getItem("R_BItem_6");
+	char R_BItem_6[] = "R_BItem_6";
+	item = pos->getItem(R_BItem_6);
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_BItem_6")==0))
 	{
 		grade += 0.5;
@@ -101,7 +104,8 @@ int main(int argc, char **argv)
 #endif
 
 	// Get the root
-	item = pos->getItem("R_BItem_4");
+	char R_BItem_4[] = "R_BItem_4";
+	item = pos->getItem(R_BItem_4);
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_BItem_4")==0))
 	{
 		grade += 1.0;
@@ -123,7 +127,8 @@ int main(int argc, char **argv)
 #endif
 
 	// Try to get a non-existing node
-	item = pos->getItem("R_BItem_0");
+	char R_BItem_0[] = "R_BItem_0";
+	item = pos->getItem(R_BItem_0);
 	if(item == NULL)
 	{
 		grade += 1.0;
@@ -152,7 +157,8 @@ int main(int argc, char **argv)
 //                   1   3 5    7
 
 	// Test delete when item is not there
-	item = pos->dropItem("R_BItem_8");
+	char R_BItem_8[] = "R_BItem_8";
+	item = pos->dropItem(R_BItem_8);
 	if(item == NULL) 
 	{
 		grade += 0.5;
@@ -168,7 +174,7 @@ int main(int argc, char **argv)
 #endif
 
 	// Drop 7 = Node not root with no children or only 1 on right.
-	item = pos->dropItem("R_BItem_7");
+	item = pos->dropItem(R_BItem_7);
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_BItem_7")==0))
 	{
 		grade += 1.0;
@@ -185,7 +191,8 @@ int main(int argc, char **argv)
 #endif
 
 	// Drop 2 = Node not root with 2 children.
-	item = pos->dropItem("R_BItem_2");
+	char R_BItem_2[] = "R_BItem_2";
+	item = pos->dropItem(R_BItem_2);
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_BItem_2")==0))
 	{
 		grade += 2.0;
@@ -202,7 +209,7 @@ int main(int argc, char **argv)
 #endif
 
 	// Drop 6 = Node not root with one child on left.
-	item = pos->dropItem("R_BItem_6");
+	item = pos->dropItem(R_BItem_6);
 	if(item != NULL) 
 	{
 		grade += 1.0;
@@ -220,7 +227,8 @@ int main(int argc, char **argv)
 
 
 	// Drop 1 = Node not root with 1 child on right.
-	item = pos->dropItem("R_BItem_1");
+	char R_BItem_1[] = "R_BItem_1";
+	item = pos->dropItem(R_BItem_1);
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_BItem_1")==0))
 	{
 		grade += 1.0;
@@ -237,7 +245,7 @@ int main(int argc, char **argv)
 #endif
 
 	// Drop 4 = Root node with 2 children.
-	item = pos->dropItem("R_BItem_4");
+	item = pos->dropItem(R_BItem_4);
 	holditem = item;
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_BItem_4")==0))
 	{
@@ -256,7 +264,8 @@ int main(int argc, char **argv)
 #endif
 
 	// Drop 3 = Root node with 1 child on right.
-	item = pos->dropItem("R_BItem_3");
+	char R_BItem_3[] = "R_BItem_3";
+	item = pos->dropItem(R_BItem_3);
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_BItem_3")==0))
 	{
 		grade += 1.0;
@@ -276,7 +285,8 @@ int main(int argc, char **argv)
 	pos->addItem(holditem);
 
 	//  Drop 5 = Root node, with one child on left
-	item = pos->dropItem("R_BItem_5");
+	char R_BItem_5[] = "R_BItem_5";
+	item = pos->dropItem(R_BItem_5);
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_BItem_5")==0))
 	{
 		grade += 1.0;
@@ -294,7 +304,7 @@ int main(int argc, char **argv)
 #endif
 
 	// Drop 4 = Root node, last in tree
-	item = pos->dropItem("R_BItem_4");
+	item = pos->dropItem(R_BItem_4);
 	holditem = item;
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_BItem_4")==0))
 	{
@@ -328,7 +338,7 @@ int main(int argc, char **argv)
 	cout.flush();
 
 	// Create a single character
-	player = new Character("Rimbard", 5, 1, 31, 11, 15, 14, 18, 18, 14);
+	player = new Character(Rimbard, 5, 1, 31, 11, 15, 14, 18, 18, 14);
 	cout << "Rimbard created\n";
 	cout << "\tAdding items to Rimbard's item lists.\n";
 	cout.flush();
@@ -356,7 +366,7 @@ int main(int argc, char **argv)
 #endif
 
 	// Get a Battle item
-	item = player->getItem("R_BItem_7");
+	item = player->getItem(R_BItem_7);
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_BItem_7")==0))
 	{
 		grade += 0.5;
@@ -373,7 +383,8 @@ int main(int argc, char **argv)
 #endif
 
 	// Get a Treasure item
-	item = player->getItem("R_TItem_6");
+	char R_TItem_6[] = "R_TItem_6";
+	item = player->getItem(R_TItem_6);
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_TItem_6")==0))
 	{
 		grade += 0.5;
@@ -392,7 +403,7 @@ int main(int argc, char **argv)
 	// Test dropping things from both lists
 	cout << "\nTesting dropping items from the Character's lists.\n";
 	// Drop 7 = Battle item not root with no children or only 1 on right.
-	item = player->dropItem("R_BItem_7");
+	item = player->dropItem(R_BItem_7);
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_BItem_7")==0))
 	{
 		grade += 1.0;
@@ -409,7 +420,7 @@ int main(int argc, char **argv)
 #endif
 
 	// Drop 6 = Battle item not root with one child on left.
-	item = player->dropItem("R_BItem_6");
+	item = player->dropItem(R_BItem_6);
 	if(item != NULL) 
 	{
 		grade += 1.0;
@@ -426,7 +437,7 @@ int main(int argc, char **argv)
 #endif
 
 	// Drop 6 = Treasure item not root with 2 children.
-	item = player->dropItem("R_TItem_6");
+	item = player->dropItem(R_TItem_6);
 	if((item != NULL) && (strcmp(item->m_sItemName, "R_TItem_6")==0))
 	{
 		grade += 1.0;
@@ -443,7 +454,8 @@ int main(int argc, char **argv)
 #endif
 
 	// Drop 4 = Treasure item is root with 2 children.
-	item = player->dropItem("R_TItem_4");
+	char R_TItem_4[] = "R_TItem_4";
+	item = player->dropItem(R_TItem_4);
 	if(item != NULL) 
 	{
 		grade += 1.0;
@@ -529,6 +541,7 @@ double addItemsToPlayer(Character *player)
 		item->m_dWeight = i*3;
 		item->m_iType = BATTLE_ITEM;
 		item->m_pLeft = item->m_pRight = NULL;
+
 		// Add the items to the player but we have already tested add item so don't add any points
 		if(!player->addItem(item))
 		{

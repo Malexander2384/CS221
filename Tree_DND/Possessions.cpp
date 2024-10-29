@@ -211,57 +211,73 @@ Item* Possessions::getItem(char *itemName){
     return nullptr;
 }
 
-
-void Possessions::printOne(Item *item) {
-    if (item != nullptr) {
-        printOne(item->m_pLeft);
-        std::cout << item->m_sItemName << " ";
-        printOne(item->m_pRight);
+void Possessions::printOne(Item* item){
+    if(item){
+        std::cout<<"Item Name: "<<item->m_sItemName<<"\n";
+        std::cout<<"Item Value: "<<item->m_dValue<<"\n";
+        std::cout<<"Item Weight: "<<item->m_dWeight<<"\n";
+        std::cout<<"Item Description: "<<item->m_sDesc<<"\n";
     }
 }
 
-int main() {
-    char Staff[] = "Staff";
-	char Spellbook[] = "Spellbook";
-	char Sword[] = "Sword";
+void Possessions::printAll(Item *rt){
+    if (rt) {
+        printOne(rt->m_pLeft);
+        printOne(rt);
+        printOne(rt->m_pRight);
+    }
+}
+
+void Possessions::printTree(){
+    printAll(m_pRoot);
+}
+
+
+// int main() {
+//     char Staff[] = "Staff";
+// 	char Spellbook[] = "Spellbook";
+// 	char Sword[] = "Sword";
     
 
-    Item* item = new Item;
-	strcpy(item->m_sItemName, Staff);
-	item->m_dValue = 5;
-	item->m_dWeight = 1;
+//     Item* item = new Item;
+// 	strcpy(item->m_sItemName, Staff);
+// 	item->m_dValue = 5;
+// 	item->m_dWeight = 1;
 
-    Item* item2 = new Item;
-	strcpy(item2->m_sItemName, Spellbook);
-	item2->m_dValue = 5;
-	item2->m_dWeight = 1;
+//     Item* item2 = new Item;
+// 	strcpy(item2->m_sItemName, Spellbook);
+// 	item2->m_dValue = 5;
+// 	item2->m_dWeight = 1;
 
-    Item* item3 = new Item;
-	strcpy(item3->m_sItemName, Sword);
-	item3->m_dValue = 5;
-	item3->m_dWeight = 1;
+//     Item* item3 = new Item;
+// 	strcpy(item3->m_sItemName, Sword);
+// 	item3->m_dValue = 5;
+// 	item3->m_dWeight = 1;
 
-    Possessions* pos = new Possessions();
-    Possessions* Test = pos;
+//     Possessions* pos = new Possessions();
+//     Possessions* Test = pos;
 
-    Test->addItem(item);
-    Test->addItem(item2);
-    Test->addItem(item3);
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//     Test->addItem(item);
+//     Test->addItem(item2);
+//     Test->addItem(item3);
+// ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    std::cout << "In-order traversal: ";
-    Test->printOne(Test->m_pRoot);
-    std::cout << std::endl;
+//     Test->printTree();
 
-    // Item* getTest = Test->getItem(Sword);
-    // std::cout<< getTest->m_sItemName<< "\n";
 
-    // Test->dropItem(Sword);
+//     // std::cout << "In-order traversal: ";
+//     // Test->printOne(Test->m_pRoot);
+//     std::cout << std::endl;
 
-    std::cout << "In-order traversal: ";
-    Test->printOne(Test->m_pRoot);
-    std::cout << std::endl;
+//     // Item* getTest = Test->getItem(Sword);
+//     // std::cout<< getTest->m_sItemName<< "\n";
 
-    return 0;
-}
+//     // Test->dropItem(Sword);
+
+//     // std::cout << "In-order traversal: ";
+//     // Test->printOne(Test->m_pRoot);
+//     std::cout << std::endl;
+
+//     return 0;
+// }

@@ -8,7 +8,7 @@
 #include <iostream>
 #include "Item.h"
 // #include <string.h>
-// #include "Possessions.h"
+#include "Possessions.h"
 
 
 class Character
@@ -25,8 +25,8 @@ class Character
 		// int length = sizeof(m_Items)/sizeof(m_Items[0]);
 
 
-		// Possessions *BattleItems;
-		// Possessions *TreasureItems;
+		Possessions *BattleItems;
+		Possessions *TreasureItems;
 
 	public:
 		// Character	*m_pNext;

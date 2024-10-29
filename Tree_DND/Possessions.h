@@ -8,9 +8,9 @@
 class Possessions
 {
 private:
-
-public:
     Item* m_pRoot = nullptr;
+    void printAll(Item *rt);
+public:
 
     bool addItem(Item *newItem);
     Item *dropItem(char *itemName);
@@ -23,7 +23,6 @@ public:
 
     void printOne(Item *item);
     void printTree();
-    void printAll(Item *rt);
 
 
 };
