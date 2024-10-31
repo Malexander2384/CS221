@@ -1,7 +1,5 @@
 #include "Character.h"
 
-
-
 Character::Character(char *name, int clas, int alignment, int hitpoints, int strength,
 	int dexterity, int constitution, int intelligence, int wisdom,int charisma){
     
@@ -121,8 +119,10 @@ void Character::printAll(){
     std::cout<<"Wisdom: "<<getWisdom()<<"\n";
     std::cout<<"Charisma: "<<getCharisma()<<"\n";
 
+    std::cout<<"Battle Items: "<<"\n";
     BattleItems->printTree();
     std::cout<<"\n";
+    std::cout<<"Treasure Items: "<<"\n";
     TreasureItems->printTree();
 
 }
@@ -192,7 +192,7 @@ int Character::compare_Char(Character* a, Character* b){
 //     std::cout<<"\n"<<"#############################################################################################"<<"\n";
 
 //     testClass.addItem(item);
-//     testClass.printAll();    
+//     // testClass.printAll();    
 // }
 
 // int main() {
