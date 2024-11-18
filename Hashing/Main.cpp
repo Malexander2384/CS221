@@ -4,8 +4,6 @@
 #include <math.h>
 #include <conio.h>
 #include <string.h>
-#include <functional>
-
 
 #define TABLESIZE 100
 #define KEYSIZE 4
@@ -19,7 +17,7 @@ struct HashStruct {
     int data;
 };
 
-// Modulus is needed to avoid seg faults because the values become to big for the table
+// Modulus is needed to avoid seg faults because the values become too big for the table
 
 // Djb2
 unsigned long Hash_1(const char* key) {
