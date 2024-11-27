@@ -1,0 +1,219 @@
+# Lines beginning with a '#' character will be ignored as comments
+# blank lines will also be ignored
+# It is assumed that the file will be valid and contain data on
+# 20 rooms for the gaming scenario.
+# Data on each room consists of the following on separate lines
+# Room name: Maximum of 32 characters (spaces are allowed)
+# Room description: Maximum of 128 characters
+# Room item: Maximum of 32 characters (spaces are allowed)
+# Room creature: Maximum of 32 characters (spaces are allowed)
+# The next 6 lines will define links to other rooms. 
+# The 6 lines will define, in this order, links North, South,
+# East, West, Up, and Down
+# Each of the 6 lines will contain a number giving the index in the
+# array of rooms to which there is a link.  If the value is -1 then
+# there is no link in that direction.
+# In the example below the Entrance Hall (room index 0) there is a
+# door to the north leading to room 1, one to the south leading to
+# room 5, no door east or west, a stairway going up, but no stairway
+# going down.
+Entrance Chamber
+The door you came in stands open.  It is dark ahead except for a single torch mounted on the wall.
+Leather bag
+Troll guard
+-1
+3
+1
+-1
+-1
+-1
+Statue room
+Strange looking statues line the walls.
+Bronze tiera
+Cornish pixie
+-1
+4
+2
+0
+-1
+-1
+Storage Room
+This room looks like it was originally used for storage.
+Wicker basket
+Poison fungus
+-1
+-1
+-1
+1
+14
+-1
+Secret Room
+The room is dimly lit.
+Blue crystal
+Ice Golum
+0
+6
+-1
+-1
+-1
+-1
+Priest‘s Quarters
+There is a rough cot in the room with a small trunk and bench.  Everything looks dusty.
+Religious Emblem
+Skeleton priest
+1
+-1
+5
+-1
+16
+-1
+Fireworks Storeroom
+Boxes of what looks like fireworks line the walls.
+Urn
+Ghost
+-1
+8
+-1
+4
+-1
+-1
+Special Storeroom
+There are a number of storage crates stacked against one wall.  A low forge is in the middle of the room.
+Iron hammer
+Dwarf blacksmith
+3
+9
+7
+-1
+-1
+-1
+Treasure Room
+This room looks like a vault used to store treasure.
+Coins and gems
+Giant hornet
+-1
+10
+8
+6
+-1
+-1
+Abandoned Room
+The room is empty except...
+Skeleton
+Acid slime
+5
+11
+-1
+7
+-1
+-1
+Priest’s Quarters
+This room is furnished with a bed and chest.
+Priest‘s Robe
+Giant scorpion
+6
+-1
+10
+-1
+-1
+-1
+High Priest’s Room
+This room is furnished with a bed, chest, desk, and chair.
+Wooden Holy Symbol
+Priest warrior
+7
+-1
+11
+9
+-1
+-1
+Brotherhood of Gorm
+This room is the main headquarters of the Brotherhood of Gorm
+Golden Mask
+Werebat
+8
+-1
+-1
+10
+-1
+-1
+Grand Master of Gorm
+This room is furnished with a very ornage and expensive looking bed, chest, desk, and chair.
+Steel Helmet
+Gorm high priest
+-1
+-1
+13
+-1
+18
+-1
+Ceremonial Chamber
+This room is arranged as if for an important ceremony.
+Silver idol
+Beholder beast
+-1
+16
+14
+12
+-1
+-1
+Magi of Ursamigaras
+This is the main meeting room of the Magi of Ursamigaras.
+Silver daggar
+Litch
+-1
+-1
+-1
+13
+-1
+2
+Magi Quarters
+There are a number of beds lining one wall of this room.
+Wooden Chests
+Ghost Magician
+-1
+17
+16
+-1
+-1
+-1
+Chief Mage of Ursamigaras
+This room is furnished with a very ornage and expensive looking bed, chest, desk, and chair.
+Blue Robe
+Chief Mage
+13
+-1
+-1
+15
+-1
+4
+Abandoned Storeroom
+Except for the items listed below this storeroom is empty.
+Oak crate
+Brown poison fungus
+15
+-1
+-1
+-1
+-1
+-1
+Secret Room
+This is a secret room.  It is dark and silent.
+Wicker basket
+Basilisk
+-1
+-1
+19
+-1
+-1
+12
+Chapel
+There is an altar at the front of this room with a single candle burning on it.
+Bronze statue
+Vampire
+-1
+-1
+-1
+18
+-1
+-1
