@@ -6,8 +6,6 @@
 //===========================================================================
 #include "GameGraph.h"
 
-#define DataFile "gamelayout.txt"
-
 void makeUpper(char *line);
 
 int main(int argc, char **argv)
@@ -24,6 +22,7 @@ int main(int argc, char **argv)
 	cout << "This is a Dungeons and Dragons style role \n";
 	cout << "playing game.  At the prompt enter enter your commands.\n\n";
 
+    char DataFile[] = "gamelayout.txt";
 	game->LoadGame(DataFile);	// Load the game
  
 	while(!done)
@@ -36,7 +35,6 @@ int main(int argc, char **argv)
 	}
 	return 0;
 }
-
 //--------------------------------------
 // makeUpper()
 // Converts input line to all upper case
@@ -53,16 +51,93 @@ void makeUpper(char *line)
 	}
 }
 
+GameGraph::GameGraph(){
+    m_iLocation = 0;
+    for (int i = 0; i < NUMROOMS; i++) {
+        for (int j = 0; j < NUMROOMS; j++) {
+            m_cAdjMatrix[i][j] = 0;
+        }
+    }
+}
 
+bool GameGraph::doCommand(char *cmd) {
+    makeUpper(cmd);
+    char cmd1[32], cmd2[32];
 
+    sscanf(cmd, "%s %s", cmd1, cmd2);
 
+    if (strcmp(cmd1, "TAKE") == 0 || strcmp(cmd1, "FIGHT") == 0) {
+        cout << cmd1 << " not implemented yet.\n";
+        return false;
+    }
+    else if (strcmp(cmd1, "QUIT") == 0) return true;
+    else if (strcmp(cmd1, "GO") == 0) {
+        char direction;
 
+        if (strcmp(cmd2, "NORTH") == 0) direction = 'N';
+        else if (strcmp(cmd2, "SOUTH") == 0) direction = 'S';
+        else if (strcmp(cmd2, "EAST") == 0) direction = 'E';
+        else if (strcmp(cmd2, "WEST") == 0) direction = 'W';
+        else if (strcmp(cmd2, "UP") == 0) direction = 'U';
+        else if (strcmp(cmd2, "DOWN") == 0) direction = 'D';
+        else {
+            cout << "You cannot move in that direction.\n";
+            return false;
+        }
+        
+        for (int i = 0; i < NUMROOMS; i++) {
+            if (m_cAdjMatrix[m_iLocation][i] == direction) {
+                m_iLocation = i;
+                describeRoom(m_iLocation);
+                return false;
+            }
+        }
+        cout << "You cannot move in that direction.\n";
+    }
+    else {
+        cout << "Invalid command.\n";
+    }
+    return false;
+}
 
+void GameGraph::PrintAll(){
+    for (int i = 0; i < NUMROOMS; i++) {
+        for (int j = 0; j < NUMROOMS; j++)
+            printf("%d ", m_cAdjMatrix[i][j]);
+        printf("\n");
+    }
+}
 
+void GameGraph::setLink(int roomIdx, int linkIdx, char dCode){
+    m_cAdjMatrix[roomIdx][linkIdx] = dCode;
 
+    switch(dCode) {
+        case 'N': m_cAdjMatrix[linkIdx][roomIdx] = 'S'; break;
+        case 'S': m_cAdjMatrix[linkIdx][roomIdx] = 'N'; break;
+        case 'E': m_cAdjMatrix[linkIdx][roomIdx] = 'W'; break;
+        case 'W': m_cAdjMatrix[linkIdx][roomIdx] = 'E'; break;
+        case 'U': m_cAdjMatrix[linkIdx][roomIdx] = 'D'; break;
+        case 'D': m_cAdjMatrix[linkIdx][roomIdx] = 'U'; break;
+    }
+}
 
+void GameGraph::describeRoom(int roomIdx){
+    cout << "You are in " << m_Rms[roomIdx].m_sRoomName << "\n";
+    cout << m_Rms[roomIdx].m_sRoomDesc << "\n";
+    cout << "You find a " << m_Rms[roomIdx].m_sItemName << "\n";
+    cout << "You see an enemy " << m_Rms[roomIdx].m_sCreatureName << "\n";
 
-
+    for(int i = 0; i<NUMROOMS;i++){
+        switch(m_cAdjMatrix[roomIdx][i]){
+            case 'N':cout << "There is a door in the North wall.\n";break;
+            case 'S':cout << "There is a door in the South wall.\n";break;
+            case 'E':cout << "There is a door in the East wall.\n";break;
+            case 'W':cout << "There is a door in the West wall.\n";break;
+            case 'U':cout << "There is a stairway going up.\n";break;
+            case 'D':cout << "There is a stairway going down.\n";break;
+        }
+    }
+}
 
 
 //-------------------------------------------
@@ -102,64 +177,53 @@ bool GameGraph::LoadGame(char *filename)
 {
     char line[128];
     int link;
-    bool done;
 
-    m_InFile.open(filename, ifstream::in); 
+    m_InFile.open(filename, ifstream::in);
     if(!m_InFile.is_open())
     {
-        // m_InFile.is_open() returns false if the file could not be found or
-        //    if for some other reason the open failed.
         return false;
     }
 
-    done = false;
-    for(int i=0; i<20; i++)
+    for(int i=0; i<NUMROOMS; i++)
     {
-        // Read room name
         getNextLine(line, 128);
-        /* --- Copy room name into data structure i --- */
+        strcpy(m_Rms[i].m_sRoomName, line);
 
-        // Read room description
         getNextLine(line, 128);
-        /* --- Copy room description into data structure i --- */
+        strcpy(m_Rms[i].m_sRoomDesc, line);
 
-        // Read room item
         getNextLine(line, 128);
-        /* --- Copy room item name into data structure i --- */
+        strcpy(m_Rms[i].m_sItemName, line);
 
-        // Read room creature
         getNextLine(line, 128);
-        /* --- Copy room creature name into data structure i --- */
+        strcpy(m_Rms[i].m_sCreatureName, line);
 
-        // Read North door
         getNextLine(line, 128);
-        link = atoi(line); // Convert to room index
-        // Call function to set link in adjacency matrix
+        link = atoi(line);
+        if (link != -1) setLink(i, link, 'N');
 
-        // Read South door
         getNextLine(line, 128);
-        link = atoi(line);    // Convert to room index
-        // Call function to set link in adjacency matrix
+        link = atoi(line);
+        if (link != -1) setLink(i, link, 'S');
 
-        // Read East door
         getNextLine(line, 128);
-        link = atoi(line);    // Convert to room index
-        // Call function to set link in adjacency matrix
+        link = atoi(line);
+        if (link != -1) setLink(i, link, 'E');
 
-        // Read West door
         getNextLine(line, 128);
-        link = atoi(line);    // Convert to room index
-        // Call function to set link in adjacency matrix
+        link = atoi(line);
+        if (link != -1) setLink(i, link, 'W');
 
-        // Read up stairway
         getNextLine(line, 128);
-        link = atoi(line);    // Convert to room index
-        // Call function to set link in adjacency matrix
+        link = atoi(line);
+        if (link != -1) setLink(i, link, 'U');
 
-        // Read down stairway
         getNextLine(line, 128);
-        link = atoi(line);    // Convert to room index
-        // Call function to set link in adjacency matrix
+        link = atoi(line);
+        if (link != -1) setLink(i, link, 'D');
     }
+
+    m_InFile.close();
+    describeRoom(m_iLocation);
     return true;
 }
